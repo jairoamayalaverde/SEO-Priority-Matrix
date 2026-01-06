@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, Plus, Download, Save, RefreshCw } from 'lucide-react';
+import { Trash2, Plus, Download, Save, RefreshCw, Lightbulb, TrendingUp } from 'lucide-react';
 
 export default function SEOPriorityCalculator() {
-  // Estado inicial con carga desde LocalStorage si existe
+  // Estado inicial con carga desde LocalStorage
   const [tasks, setTasks] = useState(() => {
     const saved = localStorage.getItem('seoMatrixTasks');
     return saved ? JSON.parse(saved) : [
@@ -14,12 +14,12 @@ export default function SEOPriorityCalculator() {
   
   const [newTask, setNewTask] = useState({ name: '', impact: 5, effort: 5 });
 
-  // --- AUTO-GUARDADO ---
+  // Auto-Guardado
   useEffect(() => {
     localStorage.setItem('seoMatrixTasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  // --- AUTO-RESIZE PARA IFRAME ---
+  // Auto-Resize
   useEffect(() => {
     const sendHeight = () => {
       const height = document.body.scrollHeight;
@@ -29,7 +29,7 @@ export default function SEOPriorityCalculator() {
     const observer = new ResizeObserver(sendHeight);
     observer.observe(document.body);
     return () => observer.disconnect();
-  }, [tasks]); // Se recalcula cuando cambian las tareas
+  }, [tasks]);
 
   const addTask = () => {
     if (newTask.name.trim()) {
@@ -110,7 +110,7 @@ export default function SEOPriorityCalculator() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* Add Task Panel */}
+          {/* Panel Izquierdo: Formulario */}
           <div className="bg-white rounded-2xl shadow-2xl p-6">
             <h2 className="text-2xl font-bold font-heading text-slate-800 mb-4 flex items-center gap-2">
                 <Plus className="text-purple-600" /> Nueva Tarea
@@ -174,7 +174,7 @@ export default function SEOPriorityCalculator() {
               </button>
             </div>
 
-            {/* Matrix Explanation */}
+            {/* Leyenda de Cuadrantes */}
             <div className="mt-8 p-5 bg-slate-50 rounded-xl border border-slate-200">
               <h3 className="font-bold font-heading text-slate-700 mb-3 text-sm uppercase tracking-wide">Leyenda de Cuadrantes</h3>
               <div className="grid grid-cols-2 gap-3 text-xs md:text-sm">
@@ -188,7 +188,7 @@ export default function SEOPriorityCalculator() {
             </div>
           </div>
 
-          {/* Priority List */}
+          {/* Panel Derecho: Lista Priorizada */}
           <div className="bg-white rounded-2xl shadow-2xl p-6 flex flex-col h-full">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold font-heading text-slate-800">📋 Lista Priorizada</h2>
@@ -224,6 +224,8 @@ export default function SEOPriorityCalculator() {
                 </div>
               ) : (
                 sortedTasks.map((task, index) => {
+                  const score = calculatePriority(task.impact, task.effort);
+                  const priority = getPriorityLevel(score);
                   const quadrant = getQuadrant(task.impact, task.effort);
                   const quadrantInfo = quadrantData[quadrant];
 
@@ -239,12 +241,16 @@ export default function SEOPriorityCalculator() {
                         <Trash2 size={16} />
                       </button>
 
-                      <div className="flex items-start gap-3 mb-2">
+                      <div className="flex items-start gap-3 mb-3">
                         <span className="text-2xl pt-1">{quadrantInfo.icon}</span>
                         <div className="flex-1">
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-xs font-bold text-slate-400">#{index + 1}</span>
                                 <h3 className="font-bold text-slate-800 leading-tight">{task.name}</h3>
+                                {/* RECUPERADO: Badge de Score explícito */}
+                                <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${priority.color.replace('bg-', 'bg-opacity-20 ')} ${priority.textColor}`}>
+                                  Score: {score}
+                                </span>
                             </div>
                             <div className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wide">
                                 {quadrantInfo.label}
@@ -252,16 +258,23 @@ export default function SEOPriorityCalculator() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-4 mt-3 pl-10">
+                      {/* Barras de progreso mejoradas con números */}
+                      <div className="grid grid-cols-2 gap-4 pl-10">
                         <div className="flex flex-col">
-                            <span className="text-[10px] text-slate-400 uppercase font-bold">Impacto</span>
-                            <div className="h-1.5 w-16 bg-slate-100 rounded-full overflow-hidden mt-1">
+                            <div className="flex justify-between text-[10px] text-slate-400 font-bold uppercase">
+                              <span>Impacto</span>
+                              <span>{task.impact}/10</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mt-1">
                                 <div className="h-full bg-purple-500" style={{width: `${task.impact * 10}%`}}></div>
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-[10px] text-slate-400 uppercase font-bold">Esfuerzo</span>
-                            <div className="h-1.5 w-16 bg-slate-100 rounded-full overflow-hidden mt-1">
+                            <div className="flex justify-between text-[10px] text-slate-400 font-bold uppercase">
+                              <span>Esfuerzo</span>
+                              <span>{task.effort}/10</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden mt-1">
                                 <div className="h-full bg-orange-500" style={{width: `${task.effort * 10}%`}}></div>
                             </div>
                         </div>
@@ -270,6 +283,34 @@ export default function SEOPriorityCalculator() {
                   );
                 })
               )}
+            </div>
+          </div>
+        </div>
+
+        {/* RECUPERADO: Sección de Instrucciones */}
+        <div className="mt-8 bg-white rounded-2xl shadow-xl p-6 border-t-4 border-purple-500">
+          <h3 className="text-xl font-bold font-heading text-gray-800 mb-4 flex items-center gap-2">
+            <Lightbulb className="text-purple-500" /> Cómo usar esta herramienta
+          </h3>
+          <div className="grid md:grid-cols-3 gap-6 text-sm">
+            <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
+              <div className="font-bold text-purple-900 mb-2 text-lg">1️⃣ Lista tus tareas</div>
+              <p className="text-gray-600 leading-relaxed">
+                Escribe todas las acciones SEO pendientes (ej: "Optimizar H1", "Comprimir imágenes"). No las filtres todavía.
+              </p>
+            </div>
+            <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+              <div className="font-bold text-blue-900 mb-2 text-lg">2️⃣ Califica con sinceridad</div>
+              <p className="text-gray-600 leading-relaxed">
+                <strong>Impacto:</strong> ¿Cuánto tráfico traerá? <br/>
+                <strong>Esfuerzo:</strong> ¿Qué tan difícil es?
+              </p>
+            </div>
+            <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+              <div className="font-bold text-green-900 mb-2 text-lg">3️⃣ Ataca los Quick Wins</div>
+              <p className="text-gray-600 leading-relaxed">
+                La lista se ordena automáticamente. Empieza por arriba (Alto Impacto / Bajo Esfuerzo) para ver resultados rápidos.
+              </p>
             </div>
           </div>
         </div>
