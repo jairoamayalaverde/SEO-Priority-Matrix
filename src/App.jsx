@@ -97,14 +97,16 @@ export default function SEOPriorityCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 md:p-8 font-sans">
+    // CAMBIO: Fondo actualizado a Slate-900/800 (Igual que Auditor)
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-5xl font-bold font-heading text-white mb-3">
             🎯 Matriz de Prioridad SEO
           </h1>
-          <p className="text-purple-200 text-lg">
+          {/* CAMBIO: Texto Slate-300 (Igual que Auditor) */}
+          <p className="text-slate-300 text-lg">
             Por Jairo Amaya | Identifica tus "Quick Wins" y deja de perder tiempo
           </p>
         </div>
@@ -247,7 +249,6 @@ export default function SEOPriorityCalculator() {
                             <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-xs font-bold text-slate-400">#{index + 1}</span>
                                 <h3 className="font-bold text-slate-800 leading-tight">{task.name}</h3>
-                                {/* RECUPERADO: Badge de Score explícito */}
                                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${priority.color.replace('bg-', 'bg-opacity-20 ')} ${priority.textColor}`}>
                                   Score: {score}
                                 </span>
@@ -258,7 +259,6 @@ export default function SEOPriorityCalculator() {
                         </div>
                       </div>
                       
-                      {/* Barras de progreso mejoradas con números */}
                       <div className="grid grid-cols-2 gap-4 pl-10">
                         <div className="flex flex-col">
                             <div className="flex justify-between text-[10px] text-slate-400 font-bold uppercase">
@@ -287,7 +287,7 @@ export default function SEOPriorityCalculator() {
           </div>
         </div>
 
-        {/* RECUPERADO: Sección de Instrucciones */}
+        {/* Sección de Instrucciones */}
         <div className="mt-8 bg-white rounded-2xl shadow-xl p-6 border-t-4 border-purple-500">
           <h3 className="text-xl font-bold font-heading text-gray-800 mb-4 flex items-center gap-2">
             <Lightbulb className="text-purple-500" /> Cómo usar esta herramienta
