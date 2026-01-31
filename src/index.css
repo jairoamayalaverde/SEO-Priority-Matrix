@@ -2,57 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- PROTOCOLO DE INTEGRACIÓN TOTAL JAIRO AMAYA --- */
+/* ============================================================
+   PROTOCOLO QUIRÚRGICO MOC™ - SOLO COLOR Y VISIBILIDAD
+   ============================================================ */
 
-/* 1. Forzado de fondo negro en todas las capas posibles */
-html, body, #root, #__next {
+/* 1. Fondo e Integración (Sin afectar estructura) */
+html, body, main, #root, #__next {
   background-color: #000000 !important;
   color: #ffffff !important;
-  margin: 0;
   font-family: 'Poppins', sans-serif;
 }
 
-/* 2. Neutralizar fondos automáticos de Tailwind (Slate, Gray, Zinc, etc) */
-div[class*="bg-slate-"], 
-div[class*="bg-gray-"], 
-div[class*="bg-zinc-"], 
-main, section {
+/* 2. Neutralizar el Azul Slate sin romper el Layout */
+.bg-slate-900, .bg-slate-950, .bg-background {
   background-color: #000000 !important;
 }
 
-/* 3. Corrección de visibilidad en campos de escritura */
+/* 3. Estilo de Tarjetas (Solo color de fondo y borde) */
+.bg-card, [class*="card"] {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 4. Corrección de Texto en Inputs (Para que se vea al escribir) */
 input, textarea, select {
   color: #ffffff !important;
   background-color: #0a0a0a !important;
-  border: 1px solid #222 !important;
-  outline: none !important;
+  border-color: #222 !important;
 }
 
-input:focus {
-  border-color: #db2777 !important;
+input::placeholder {
+  color: #555 !important;
 }
 
-/* 4. Estilo Magenta Sorprendente para Acentos */
-@layer base {
-  :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --primary: 335 71% 51%; /* Magenta #db2777 */
-  }
-}
-
-/* Transformar cualquier elemento "Primary" o Azul en tu Magenta */
-.bg-primary, .bg-blue-600, .bg-indigo-600, button[type="submit"] {
+/* 5. Acento Magenta sorprendente (Solo en botones y barras de progreso) */
+/* Esto reemplaza los azules por tu Magenta de marca */
+.bg-primary, 
+.bg-blue-600, 
+button[type="submit"], 
+[class*="progress-fill"] {
   background: linear-gradient(90deg, #db2777 0%, #4c1d95 100%) !important;
   border: none !important;
-  color: #ffffff !important;
 }
 
-.text-primary, .text-blue-500, .text-indigo-400 {
-  color: #db2777 !important;
-}
-
-/* 5. Limpieza visual: Sin scrollbar */
+/* 6. Refinamiento Visual */
 ::-webkit-scrollbar {
   display: none;
 }
