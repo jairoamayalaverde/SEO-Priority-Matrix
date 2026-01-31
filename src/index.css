@@ -2,58 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* UNIDAD DE SISTEMA JAIRO AMAYA */
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+/* --- PROTOCOLO DE INTEGRACIÓN TOTAL JAIRO AMAYA --- */
+
+/* 1. Forzado de fondo negro en todas las capas posibles */
+html, body, #root, #__next {
   background-color: #000000 !important;
   color: #ffffff !important;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* OCULTAR SCROLLBAR */
-::-webkit-scrollbar {
-  display: none;
+/* 2. Neutralizar fondos automáticos de Tailwind (Slate, Gray, Zinc, etc) */
+div[class*="bg-slate-"], 
+div[class*="bg-gray-"], 
+div[class*="bg-zinc-"], 
+main, section {
+  background-color: #000000 !important;
 }
 
-/* CORRECCIÓN CRÍTICA: VISIBILIDAD DE TEXTO EN CUADROS DE ESCRITURA */
+/* 3. Corrección de visibilidad en campos de escritura */
 input, textarea, select {
-  color: #ffffff !important; /* Texto blanco siempre visible */
-  background-color: #111111 !important; /* Fondo gris muy oscuro para contraste */
+  color: #ffffff !important;
+  background-color: #0a0a0a !important;
   border: 1px solid #222 !important;
+  outline: none !important;
 }
 
-input::placeholder, textarea::placeholder {
-  color: #666 !important; /* Color gris para el texto de ejemplo */
+input:focus {
+  border-color: #db2777 !important;
 }
 
-/* CAPA DE ESTILO MAGENTA SORPRENDENTE */
+/* 4. Estilo Magenta Sorprendente para Acentos */
 @layer base {
   :root {
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
-    --primary: 335 71% 51%; /* #db2777 */
-    --card: 0 0% 2%;
-    --border: 240 5% 10%;
+    --primary: 335 71% 51%; /* Magenta #db2777 */
   }
 }
 
-/* Forzar negros reales en contenedores de Tailwind */
-.bg-slate-900, .bg-slate-800, .bg-gray-900, .bg-slate-950 {
-  background-color: #000000 !important;
-}
-
-/* Botones y acentos con degradado Magenta Jairo Amaya */
-.bg-blue-600, .bg-indigo-600, .bg-primary, button[type="submit"] {
+/* Transformar cualquier elemento "Primary" o Azul en tu Magenta */
+.bg-primary, .bg-blue-600, .bg-indigo-600, button[type="submit"] {
   background: linear-gradient(90deg, #db2777 0%, #4c1d95 100%) !important;
-  color: #ffffff !important;
   border: none !important;
+  color: #ffffff !important;
 }
 
-.text-blue-600, .text-indigo-400, .text-primary {
+.text-primary, .text-blue-500, .text-indigo-400 {
   color: #db2777 !important;
 }
 
-/* Asegurar que las tarjetas no tengan fondos claros */
-[class*="card"], [class*="container"] {
-  border-color: #111 !important;
+/* 5. Limpieza visual: Sin scrollbar */
+::-webkit-scrollbar {
+  display: none;
 }
