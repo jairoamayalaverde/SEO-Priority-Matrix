@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, Plus, Download, Save, RefreshCw, Lightbulb, TrendingUp } from 'lucide-react';
+import { Trash2, Plus, Download, RefreshCw } from 'lucide-react';
 
 export default function SEOPriorityCalculator() {
   // Estado inicial con carga desde LocalStorage
@@ -19,7 +19,7 @@ export default function SEOPriorityCalculator() {
     localStorage.setItem('seoMatrixTasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  // Auto-Resize
+  // Auto-Resize para integración con Elementor
   useEffect(() => {
     const sendHeight = () => {
       const height = document.body.scrollHeight;
@@ -97,23 +97,21 @@ export default function SEOPriorityCalculator() {
   };
 
   return (
-    // CAMBIO: Fondo actualizado a Slate-900/800 (Igual que Auditor)
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 font-sans">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="font-black text-center uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2rem, 8vw, 4rem)' }}>
-  <span className="text-white">Matriz de</span> <br />
-  <span style={{
-    background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    filter: 'drop-shadow(0 0 15px rgba(219,39,119,0.4))'
-  }}>
-    Prioridad SEO
-  </span>
-</h1>
-          {/* CAMBIO: Texto Slate-300 (Igual que Auditor) */}
+            <span className="text-white">Matriz de</span> <br />
+            <span style={{
+              background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 15px rgba(219,39,119,0.4))'
+            }}>
+              Prioridad SEO
+            </span>
+          </h1>
           <p className="text-slate-300 text-lg">
             Prioriza tus acciones SEO basándote en impacto vs esfuerzo
           </p>
@@ -145,7 +143,6 @@ export default function SEOPriorityCalculator() {
                 <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">
                     Impacto en Negocio
-                    <div className="text-xs font-normal text-slate-500">¿Cuánto tráfico/dinero traerá?</div>
                     </label>
                     <div className="flex items-center gap-3">
                         <input
@@ -161,7 +158,6 @@ export default function SEOPriorityCalculator() {
                 <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">
                     Esfuerzo Técnico
-                    <div className="text-xs font-normal text-slate-500">¿Qué tan difícil es implementar?</div>
                     </label>
                     <div className="flex items-center gap-3">
                         <input
@@ -184,7 +180,6 @@ export default function SEOPriorityCalculator() {
               </button>
             </div>
 
-            {/* Leyenda de Cuadrantes */}
             <div className="mt-8 p-5 bg-slate-50 rounded-xl border border-slate-200">
               <h3 className="font-bold font-heading text-slate-700 mb-3 text-sm uppercase tracking-wide">Leyenda de Cuadrantes</h3>
               <div className="grid grid-cols-2 gap-3 text-xs md:text-sm">
@@ -230,7 +225,6 @@ export default function SEOPriorityCalculator() {
                 <div className="h-full flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-200 rounded-xl p-8">
                   <RefreshCw size={48} className="mb-4 opacity-50" />
                   <p className="text-lg font-medium">Tu matriz está vacía</p>
-                  <p className="text-sm">Agrega tareas para calcular su prioridad</p>
                 </div>
               ) : (
                 sortedTasks.map((task, index) => {
@@ -295,40 +289,9 @@ export default function SEOPriorityCalculator() {
           </div>
         </div>
 
-        {/* Sección de Instrucciones */}
-        <div className="mt-8 bg-white rounded-2xl shadow-xl p-6 border-t-4 border-purple-500">
-          <h3 className="text-xl font-bold font-heading text-gray-800 mb-4 flex items-center gap-2">
-            <Lightbulb className="text-purple-500" /> Cómo usar esta herramienta
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6 text-sm">
-            <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
-              <div className="font-bold text-purple-900 mb-2 text-lg">1️⃣ Lista tus tareas</div>
-              <p className="text-gray-600 leading-relaxed">
-                Escribe todas las acciones SEO pendientes (ej: "Optimizar H1", "Comprimir imágenes"). No las filtres todavía.
-              </p>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
-              <div className="font-bold text-blue-900 mb-2 text-lg">2️⃣ Califica con sinceridad</div>
-              <p className="text-gray-600 leading-relaxed">
-                <strong>Impacto:</strong> ¿Cuánto tráfico traerá? <br/>
-                <strong>Esfuerzo:</strong> ¿Qué tan difícil es?
-              </p>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg border border-green-100">
-              <div className="font-bold text-green-900 mb-2 text-lg">3️⃣ Ataca los Quick Wins</div>
-              <p className="text-gray-600 leading-relaxed">
-                La lista se ordena automáticamente. Empieza por arriba (Alto Impacto / Bajo Esfuerzo) para ver resultados rápidos.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
+        {/* Footer simple */}
         <div className="mt-8 text-center text-slate-400 text-sm pb-4">
           <p>Herramienta creada por <span className="text-white font-semibold">Jairo Amaya</span> | Full Stack Marketer</p>
-          <p className="mt-2">
-            
-          </p>
         </div>
       </div>
     </div>
