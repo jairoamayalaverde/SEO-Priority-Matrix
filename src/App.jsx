@@ -115,7 +115,7 @@ export default function SEOPriorityCalculator() {
 </h1>
           {/* CAMBIO: Texto Slate-300 (Igual que Auditor) */}
           <p className="text-slate-300 text-lg">
-            By Jairo Amaya | Prioriza tus acciones SEO basándote en impacto vs esfuerzo
+            Prioriza tus acciones SEO basándote en impacto vs esfuerzo
           </p>
         </div>
 
