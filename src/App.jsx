@@ -327,9 +327,7 @@ export default function SEOPriorityCalculator() {
         <div className="mt-8 text-center text-slate-400 text-sm pb-4">
           <p>Herramienta creada por <span className="text-white font-semibold">Jairo Amaya</span> | Full Stack Marketer</p>
           <p className="mt-2">
-            <a href="https://jairoamaya.co?utm_source=matrix_tool&utm_medium=footer_link" className="text-purple-400 hover:text-white underline transition-colors">
-                Visitar jairoamaya.co
-            </a>
+            
           </p>
         </div>
       </div>
