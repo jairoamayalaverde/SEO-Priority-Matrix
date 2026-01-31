@@ -102,9 +102,17 @@ export default function SEOPriorityCalculator() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold font-heading text-white mb-3">
-            🎯 Matriz de Prioridad SEO
-          </h1>
+          <h1 className="font-black text-center uppercase tracking-tighter leading-none" style={{ fontSize: 'clamp(2rem, 8vw, 4rem)' }}>
+  <span className="text-white">Matriz de</span> <br />
+  <span style={{
+    background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    filter: 'drop-shadow(0 0 15px rgba(219,39,119,0.4))'
+  }}>
+    Prioridad SEO
+  </span>
+</h1>
           {/* CAMBIO: Texto Slate-300 (Igual que Auditor) */}
           <p className="text-slate-300 text-lg">
             By Jairo Amaya | Prioriza tus acciones SEO basándote en impacto vs esfuerzo
