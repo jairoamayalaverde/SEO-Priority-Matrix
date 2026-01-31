@@ -5,38 +5,55 @@
 /* UNIDAD DE SISTEMA JAIRO AMAYA */
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif; /* Cambiamos Roboto por tu fuente de marca */
-  background-color: #000000 !important; /* Negro Puro para fundirse con la web */
-  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
 
-/* OCULTAR SCROLLBAR: Para que no parezca un frame embebido */
+/* OCULTAR SCROLLBAR */
 ::-webkit-scrollbar {
   display: none;
 }
 
-/* CAPA DE ESTILO MAGENTA SORPRENDENTE (Inyección Pasiva) */
+/* CORRECCIÓN CRÍTICA: VISIBILIDAD DE TEXTO EN CUADROS DE ESCRITURA */
+input, textarea, select {
+  color: #ffffff !important; /* Texto blanco siempre visible */
+  background-color: #111111 !important; /* Fondo gris muy oscuro para contraste */
+  border: 1px solid #222 !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #666 !important; /* Color gris para el texto de ejemplo */
+}
+
+/* CAPA DE ESTILO MAGENTA SORPRENDENTE */
 @layer base {
   :root {
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
-    --primary: 335 71% 51%; /* El Magenta de tu marca #db2777 */
+    --primary: 335 71% 51%; /* #db2777 */
     --card: 0 0% 2%;
-    --border: 0 0% 10%;
+    --border: 240 5% 10%;
   }
 }
 
-/* Forzar que los elementos oscuros de la matriz sean negros reales */
-.bg-slate-900, .bg-slate-800, .bg-gray-900 {
+/* Forzar negros reales en contenedores de Tailwind */
+.bg-slate-900, .bg-slate-800, .bg-gray-900, .bg-slate-950 {
   background-color: #000000 !important;
 }
 
-/* Darle el toque Jairo Amaya a los acentos azules que trae Tailwind por defecto */
-.bg-blue-600, .bg-indigo-600, .bg-primary {
+/* Botones y acentos con degradado Magenta Jairo Amaya */
+.bg-blue-600, .bg-indigo-600, .bg-primary, button[type="submit"] {
   background: linear-gradient(90deg, #db2777 0%, #4c1d95 100%) !important;
+  color: #ffffff !important;
   border: none !important;
 }
 
-.text-blue-600, .text-indigo-400 {
+.text-blue-600, .text-indigo-400, .text-primary {
   color: #db2777 !important;
+}
+
+/* Asegurar que las tarjetas no tengan fondos claros */
+[class*="card"], [class*="container"] {
+  border-color: #111 !important;
 }
